@@ -9,10 +9,80 @@
         <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css"/>
         <link rel="stylesheet" href="css/jquery.mobile.icons.min.css"/>
         <link rel="stylesheet" href="css/Calorias1.css"/>
+
+        <script type="text/javascript" charset="utf-8">
+            var pictureSource;
+            var destinationType;
+
+            document.addEventListener("deviceReady", onDeviceReady, false);
+            function onDeviceReady() {
+                pictureSource = navigator.camera.PictureSourceType;
+                destinationType = navigator.camera.DestinationType;
+            }
+
+            function onPhotoDataSuccess(imageData) {
+                var portada = document.getElementById('portada');
+                portada.src = "data:image/jpeg;base64," + imageData;
+            }
+
+            function onPhotoLibrarySuccess(imageURI) {
+                var portada = document.getElementById('portada');
+                portada.src = imageURI;
+            }
+
+            function onFail() {
+                alert('Falló al iniciar la camara ' + message);
+            }
+
+            //Funciones de los botones popup
+            function capturePhoto() {
+                navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
+                    quality: 50, destinationType: destinationType.DATA_URL
+                });
+            }
+
+            function getPhoto(source) {
+                navigator.camera.getPicture(onPhotoLibrarySuccess, onFail, {
+                    quality: 50, destinationType: destinationType.FILE_URI, sourceType: source
+                });
+            }
+        </script>
+
     </head>
     <body>
-        <section>
+        <section data-role="page">
+            <div data-role="content">
+                <a href="#cambiar_portada" data-rel="popup" data-position-to="window" data-transition="pop">
+                    <div id="portada" style="height: 30vh">
+                        <img src="img/full_sports.png" style="height: 100%" alt=""/>
+                    </div>
+                </a>
 
+
+                <div data-role="popup" id="cambiar_portada">
+                    <h3>Cambiar imagen</h3>
+
+                    <a href="#botones_cambiar_portada" data-rel="popup" data-position-to="window"
+                       data-transition="pop"
+                       data-role="button" data-icon="check"
+                       data-inline="true" data-mini="true">Aceptar</a>
+
+                    <a href="#" data-role="button" data-rel="back" data-icon="delete" data-inline="true"
+                       data-mini="true">Cancel</a>
+                </div>
+
+                <div data-role="popup" id="botones_cambiar_portada">
+                    <h3>Origen</h3>
+
+                    <a href="#" data-role="button" data-rel="back" data-icon="check" data-inline="true"
+                       data-mini="true" onclick="getPhoto(pictureSource.PHOTOLIBRARY);">Aceptar</a>
+
+                    <a href="#" data-role="button" data-rel="back" data-icon="delete" data-inline="true"
+                       data-mini="true">Cancel</a>
+                </div>
+            </div>
         </section>
+
+
     </body>
 </html>
