@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Practica03</title>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.5.min.js"></script>
+        <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css"/>
+        <link rel="stylesheet" href="css/jquery.mobile.icons.min.css"/>
+        <link rel="stylesheet" href="css/Calorias1.css"/>
+
+    </head>
+    <body>
+        <section data-role="page" style="background-color: #f7931e; align-content: inherit">
+            <div style="top: 5%; position: absolute">
+                <img src="img/Sin%20título-1.png" alt="" width="100%" height="100%"/>
+                <center>
+                    <div style="color: white; font-family: verdana;">Runner</div>
+                </center>
+                <p><a href="#menu" data-role="button" data-transition="slide">Empieza ahora</a></p>
+                <footer data-role="footer" data-position="fixed">
+                    <div style="color: black; font-size: smaller;">Copyright. All rights reserved.</div>
+                </footer>
+            </div>
+        </section>
+
+        <section data-role="page" id="menu">
+            <div data-role="content">
+                <center>
+                    <img src="img/Sin%20título-1.png" alt="" width="50%" height="50%"/>
+                    <br>
+
+                    <div style="color: white; font-family: verdana;">Inicio de sesión</div>
+                </center>
+            </div>
+            <div data-role="content">
+                <form data-role="form" id="login" action="main_screen.html" method="post">
+                    <p>
+                        <input type="email" name="email" size="30"  data-inset="true"
+                               data-filter-placeholder="E-mail">
+                    </p>
+
+                    <p>
+                        <input type="password" name="password" size="30"  data-inset="true"
+                               data-filter-placeholder="Contraseña">
+                    </p>
+
+                    <p align="center">
+                        <input type="submit" value="Entrar" name="submit">
+                    </p>
+                    <br>
+                    <br>
+                </form>
+            </div>
+            <footer data-role="footer" data-position="fixed">
+                Copyright
+            </footer>
+        </section>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>
