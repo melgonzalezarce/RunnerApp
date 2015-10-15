@@ -11,7 +11,46 @@
         <link rel="stylesheet" href="css/jquery.mobile.icons.min.css"/>
         <link rel="stylesheet" href="css/Calorias1.css"/>
 
+        <script type="text/javascript" charset="utf-8">
+            var pictureSource;
+            var destinationType;
+
+            document.addEventListener("deviceReady", onDeviceReady, false);
+
+            function onDeviceReady() {
+                pictureSource = navigator.camera.PictureSourceType;
+                destinationType = navigator.camera.DestinationType;
+            }
+
+            function onPhotoDataSuccess(imageData) {
+                var portada = document.getElementById('portada_img');
+                portada.src = "data:image/jpeg;base64," + imageData;
+            }
+
+            function onPhotoLibrarySuccess(imageURI) {
+                var portada = document.getElementById('portada_img');
+                portada.src = imageURI;
+            }
+
+            function onFail() {
+                alert('Falló al iniciar la camara ' + message);
+            }
+
+            //Funciones de los botones popup
+            function capturePhoto() {
+                navigator.camera.getPicture(onPhotoDataSuccess, onFail, {
+                    quality: 50, destinationType: destinationType.DATA_URL
+                });
+            }
+
+            function getPhoto(source) {
+                navigator.camera.getPicture(onPhotoLibrarySuccess, onFail, {
+                    quality: 50, destinationType: destinationType.FILE_URI, sourceType: source
+                });
+            }
+        </script>
     </head>
+
     <body>
         <section data-role="page" style="background-color: #f7931e; align-content: inherit">
             <div style="top: 5%; position: absolute">
@@ -36,19 +75,20 @@
                 </center>
             </div>
             <div data-role="content">
-                <form data-role="form" id="login" action="main_screen.html" method="post">
+                <form data-role="form" id="login" method="post">
                     <p>
-                        <input type="email" name="email" size="30"  data-inset="true"
+                        <input type="email" name="email" size="30" data-inset="true"
                                data-filter-placeholder="E-mail">
                     </p>
 
                     <p>
-                        <input type="password" name="password" size="30"  data-inset="true"
+                        <input type="password" name="password" size="30" data-inset="true"
                                data-filter-placeholder="Contraseña">
                     </p>
 
                     <p align="center">
-                        <input type="submit" value="Entrar" name="submit">
+                        <a href="#main_screen" onclick="parentNode.submit();" data-role="button">Entrar</a>
+                        <!--<input type="submit" value="Entrar" name="submit">-->
                     </p>
                     <br>
                     <br>
@@ -58,6 +98,39 @@
                 Copyright
             </footer>
         </section>
+
+        <!-- Esta página va a estar dividida en 3 pedazos, en el primero la portada con un 25%
+            en segundo las calorías los pasos, las calorías y el reiniciar y detener, y por ultimo
+            la brújula dinámica y los grados-->
+        <section data-role="page" id="main_screen">
+            <div data-role="content">
+                <!-- Esta es la portada-->
+                <div id="portada">
+                    <a href="#cambiar_portada" data-rel="popup" data-position-to="#portada" data-transition="pop">
+                        <div style="height: 25vh; text-align: center">
+                            <img id="portada_img" src="img/RunLab-Logo-Dr-Kim-Mullen.png"
+                                 style="height: 80%; margin: auto" alt=""/>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Popup para cambiar la imagen de la portada -->
+            <div data-role="popup" id="cambiar_portada" class="ui-content">
+                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete
+                    ui-btn-icon-notext ui-btn-right">Close</a>
+
+                <h3>Origen</h3>
+
+                <a href="#" data-role="button" data-icon="check" data-inline="true" data-rel="back"
+                   data-mini="true" onclick="getPhoto(pictureSource.PHOTOLIBRARY);">Libreria</a>
+
+                <a href="#" data-role="button" data-icon="delete" data-inline="true" data-rel="back"
+                   data-mini="true" onclick="capturePhoto();">Cámara</a>
+
+            </div>
+        </section>
+
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>
