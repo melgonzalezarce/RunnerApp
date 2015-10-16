@@ -107,14 +107,14 @@
             en segundo las calorías: los pasos, las calorías y el reiniciar y detener;
             y por ultimo la brújula dinámica y los grados-->
 
-        <div data-role="page" id="main_screen">
+        <div data-role="page" id="main_screen" style="background-color: chocolate">
 
             <!-- Parte 1: La portada -->
             <div role="main" class="ui-content">
                 <a href="#dialogPage" data-rel="dialog">
                     <div style="height: 25vh; text-align: center; background-color: white;">
-                        <img id="portada_img" src="img/RunLab-Logo-Dr-Kim-Mullen.png"
-                             style="height: 80%; margin: auto" alt=""/>
+                        <img id="portada_img" src="img/keep-running.jpg"
+                             style="height: 100%; width: 100%; margin: auto" alt=""/>
                     </div>
                 </a>
             </div>
@@ -137,11 +137,11 @@
         </div>
 
         <!-- Parte para dialog y popup -->
-        <div data-role="dialog" id="dialogPage">
+        <div data-role="dialog" id="dialogPage" style="background-color: chocolate">
             <div data-role="header">
                 <h2>Atención</h2>
             </div>
-            <div role="main" class="ui-content">
+            <div role="main" class="ui-content" style="background-color: navajowhite;">
                 <p>¿Desea cambiar su foto de portada?</p>
 
                 <p>Le servirá para personalizar su perfil.</p>
@@ -152,7 +152,7 @@
                    data-mini="true">Cancelar</a>
             </div>
             <!-- Popup para cambiar la imagen de la portada -->
-            <div data-role="popup" id="cambiar_portada" class="ui-content">
+            <div data-role="popup" id="cambiar_portada" class="ui-content" style="background-color: white">
                 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete
                     ui-btn-icon-notext ui-btn-right">Close</a>
 
