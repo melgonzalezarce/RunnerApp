@@ -29,11 +29,13 @@
             function onPhotoDataSuccess(imageData) {
                 var portada = document.getElementById('portada_img');
                 portada.src = "data:image/jpeg;base64," + imageData;
+                $('#dialogPage').dialog('close');
             }
 
             function onPhotoLibrarySuccess(imageURI) {
                 var portada = document.getElementById('portada_img');
                 portada.src = imageURI;
+                $('#dialogPage').dialog('close');
             }
 
             function onFail() {
@@ -51,6 +53,7 @@
                 navigator.camera.getPicture(onPhotoLibrarySuccess, onFail, {
                     quality: 50, destinationType: destinationType.FILE_URI, sourceType: source
                 });
+
             }
 
             //Brujula
@@ -156,37 +159,21 @@
                              style="height: 100%; width: 100%; margin: auto" alt=""/>
                     </div>
                 </a>
-            </div>
-            <div data-role="content">
-                <!-- Esta es la portada-->
-                <div id="portada">
-                    <a href="#cambiar_portada" data-rel="popup" data-position-to="#portada" data-transition="pop">
-                        <div style="height: 25vh; text-align: center">
-                            <img id="portada_img" src="img/RunLab-Logo-Dr-Kim-Mullen.png"
-                                 style="height: 80%; margin: auto" alt=""/>
-                        </div>
-                    </a>
-                </div>
 
+            </div>
+            <!-- Parte 2: Las calorías -->
+            <div>
+
+
+            </div>
+
+            <!-- Parte 3: La brújula -->
+            <div data-role="content">
                 <div id="brujula" style="text-align: center">
                     <img src="img/compass.png" alt="" id="img_brujula"/>
                     <h5 id="angulo"></h5>
                 </div>
-                <center>
-                    <div style="color: white; font-family: verdana;">¡Bienvenido de Nuevo!</div>
-                </center>
             </div>
-        </div>
-        <!-- Parte 2: Las calorías -->
-        <div>
-
-
-        </div>
-
-        <!-- Parte 3: La brújula -->
-        <div>
-
-
         </div>
 
         <!-- Parte para dialog y popup -->
