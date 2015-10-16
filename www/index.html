@@ -88,7 +88,6 @@
                 alert('Error de brujula:' + compassError.code);
             }
         </script>
-
     </head>
 
     <body>
@@ -100,12 +99,14 @@
                 </center>
                 <p><a href="#menu" data-role="button" data-transition="slide">Empieza ahora</a></p>
                 <footer data-role="footer" data-position="fixed">
-                    <div style="color: black; font-size: smaller;">Copyright. All rights reserved.</div>
+                    <center>
+                        <div style="color: black; font-size: smaller;">Copyright. All rights reserved.</div>
+                    </center>
                 </footer>
             </div>
         </section>
 
-        <section data-role="page" id="menu">
+        <div data-role="page" id="menu">
             <div data-role="content">
                 <center>
                     <img src="img/full_sports.png" alt="" width="50%" height="50%"/>
@@ -118,12 +119,12 @@
                 <form data-role="form" id="login" method="post">
                     <p>
                         <input type="email" name="email" size="30" data-inset="true"
-                               data-filter-placeholder="E-mail">
+                               data-filter-placeholder="E-mail" placeholder="E-mail">
                     </p>
 
                     <p>
                         <input type="password" name="password" size="30" data-inset="true"
-                               data-filter-placeholder="Contraseña">
+                               data-filter-placeholder="Contraseña" placeholder="Contraseña">
                     </p>
 
                     <p align="center">
@@ -135,14 +136,27 @@
                 </form>
             </div>
             <footer data-role="footer" data-position="fixed">
-                Copyright
+                <center>
+                    <div style="color: black; font-size: smaller;">Copyright. All rights reserved.</div>
+                </center>
             </footer>
-        </section>
+        </div>
+        <!-- Esta página va a estar dividida en 3 partes:
+            en el primero la portada con un 25%;
+            en segundo las calorías: los pasos, las calorías y el reiniciar y detener;
+            y por ultimo la brújula dinámica y los grados-->
 
-        <!-- Esta página va a estar dividida en 3 pedazos, en el primero la portada con un 25%
-            en segundo las calorías los pasos, las calorías y el reiniciar y detener, y por ultimo
-            la brújula dinámica y los grados-->
-        <section data-role="page" id="main_screen">
+        <div data-role="page" id="main_screen" style="background-color: chocolate">
+
+            <!-- Parte 1: La portada -->
+            <div role="main" class="ui-content">
+                <a href="#dialogPage" data-rel="dialog">
+                    <div style="height: 25vh; text-align: center; background-color: white;">
+                        <img id="portada_img" src="img/keep-running.jpg"
+                             style="height: 100%; width: 100%; margin: auto" alt=""/>
+                    </div>
+                </a>
+            </div>
             <div data-role="content">
                 <!-- Esta es la portada-->
                 <div id="portada">
@@ -158,24 +172,53 @@
                     <img src="img/compass.png" alt="" id="img_brujula"/>
                     <h5 id="angulo"></h5>
                 </div>
+                <center>
+                    <div style="color: white; font-family: verdana;">¡Bienvenido de Nuevo!</div>
+                </center>
             </div>
+        </div>
+        <!-- Parte 2: Las calorías -->
+        <div>
 
+
+        </div>
+
+        <!-- Parte 3: La brújula -->
+        <div>
+
+
+        </div>
+
+        <!-- Parte para dialog y popup -->
+        <div data-role="dialog" id="dialogPage" style="background-color: chocolate">
+            <div data-role="header">
+                <h2>Atención</h2>
+            </div>
+            <div role="main" class="ui-content" style="background-color: navajowhite;">
+                <p>¿Desea cambiar su foto de portada?</p>
+
+                <p>Le servirá para personalizar su perfil.</p>
+                <a href="#cambiar_portada" data-role="button" data-icon="check" data-inline="true" data-rel="popup"
+                   data-mini="true">Aceptar</a>
+
+                <a href="#" data-role="button" data-icon="delete" data-inline="true" data-rel="back"
+                   data-mini="true">Cancelar</a>
+            </div>
             <!-- Popup para cambiar la imagen de la portada -->
-            <div data-role="popup" id="cambiar_portada" class="ui-content">
+            <div data-role="popup" id="cambiar_portada" class="ui-content" style="background-color: white">
                 <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete
                     ui-btn-icon-notext ui-btn-right">Close</a>
 
                 <h3>Origen</h3>
 
+                <p>¿De donde desea obtener su nueva foto?</p>
                 <a href="#" data-role="button" data-icon="check" data-inline="true" data-rel="back"
                    data-mini="true" onclick="getPhoto(pictureSource.PHOTOLIBRARY);">Libreria</a>
 
                 <a href="#" data-role="button" data-icon="delete" data-inline="true" data-rel="back"
                    data-mini="true" onclick="capturePhoto();">Cámara</a>
-
             </div>
-        </section>
-
+        </div>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>

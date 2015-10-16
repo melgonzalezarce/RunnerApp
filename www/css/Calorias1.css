@@ -13,6 +13,7 @@
 /* Globals */
 /* Font
 -----------------------------------------------------------------------------------------------------------*/
+
 html {
 	font-size: 100%;
 }
@@ -37,6 +38,14 @@ legend,
 div.ui-controlgroup-label {
 	font-weight: normal;
 	font-size: 16px;
+}
+.ui-dialog-contain {
+	width: 92.5%;
+	max-width: 500px;
+	margin: 10% auto 15px auto;
+	padding: 0;
+	position: relative;
+	top: -15px;
 }
 /* Separators
 -----------------------------------------------------------------------------------------------------------*/
@@ -238,7 +247,7 @@ html body .ui-group-theme-a .ui-bar-inherit {
 .ui-overlay-a,
 .ui-page-theme-a,
 .ui-page-theme-a .ui-panel-wrapper {
-	background-color: #f7931e /*{a-page-background-color}*/;
+	background-color: gray /*{a-page-background-color}*/;
 	border-color: #bbbbbb /*{a-page-border}*/;
 	color: #333333 /*{a-page-color}*/;
 	text-shadow: 0 /*{a-page-shadow-x}*/ 1px /*{a-page-shadow-y}*/ 0 /*{a-page-shadow-radius}*/ #f3f3f3 /*{a-page-shadow-color}*/;
@@ -250,10 +259,14 @@ html .ui-bar-a .ui-body-inherit,
 html .ui-body-a .ui-body-inherit,
 html body .ui-group-theme-a .ui-body-inherit,
 html .ui-panel-page-container-a {
-	background-color: #fef795 /*{a-body-background-color}*/;
-	border-color: #fef795 /*{a-body-border}*/;
-	color: #000000 /*{a-body-color}*/;
+	background-color: navajowhite /*{a-body-background-color}*/;
+	border-color: transparent /*{a-body-border}*/;
+	color: black /*{a-body-color}*/;
 	text-shadow: 0 /*{a-body-shadow-x}*/ 1px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #0d0d0d /*{a-body-shadow-color}*/;
+}
+
+::-webkit-input-placeholder{
+	color: black;
 }
 .ui-body-a {
 	border-width: 1px;
