@@ -7,6 +7,8 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.5.min.js"></script>
+        <script src="js/jQuery.Rotate.js"></script>
+
         <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css"/>
         <link rel="stylesheet" href="css/jquery.mobile.icons.min.css"/>
         <link rel="stylesheet" href="css/Calorias1.css"/>
@@ -14,12 +16,14 @@
         <script type="text/javascript" charset="utf-8">
             var pictureSource;
             var destinationType;
+            var gWatchID = null;
 
             document.addEventListener("deviceReady", onDeviceReady, false);
 
             function onDeviceReady() {
                 pictureSource = navigator.camera.PictureSourceType;
                 destinationType = navigator.camera.DestinationType;
+                startWatch();
             }
 
             function onPhotoDataSuccess(imageData) {
@@ -48,7 +52,43 @@
                     quality: 50, destinationType: destinationType.FILE_URI, sourceType: source
                 });
             }
+
+            //Brujula
+            function DoRotate(d) {
+                d = parseInt(d);
+                var imagen = $("#img_brujula");
+                imagen.rotate({
+                    angle: -d,
+                    duration: 500
+                });
+                //Agregar comprobacion en que coordenada esta (NE, SE, NO, etc)
+                //MELISSA TE AMO
+                $('#angulo').html(d + ' °');
+            }
+
+            function onSuccess(heading) {
+                DoRotate(heading.magneticHeading);
+            }
+
+            function startWatch() {
+                var options = {frequency: 250};
+                if (!gWatchID) {
+                    gWatchID = navigator.compass.watchHeading(onSuccess, onError, options);
+                }
+            }
+
+            function stopWatch() {
+                if (gWatchID) {
+                    navigator.compass.clearWatch(watchID);
+                    gWatchID = null;
+                }
+            }
+
+            function onError(compassError) {
+                alert('Error de brujula:' + compassError.code);
+            }
         </script>
+
     </head>
 
     <body>
@@ -112,6 +152,11 @@
                                  style="height: 80%; margin: auto" alt=""/>
                         </div>
                     </a>
+                </div>
+
+                <div id="brujula" style="text-align: center">
+                    <img src="img/compass.png" alt="" id="img_brujula"/>
+                    <h5 id="angulo"></h5>
                 </div>
             </div>
 
