@@ -16,14 +16,19 @@
         <script type="text/javascript" charset="utf-8">
             var pictureSource;
             var destinationType;
-            var gWatchID = null;
+            var bruWatchID = null;
+            var acelWatchID = null;
+
+            var pasos = 0;
+            var kcal = 0;
 
             document.addEventListener("deviceReady", onDeviceReady, false);
 
             function onDeviceReady() {
                 pictureSource = navigator.camera.PictureSourceType;
                 destinationType = navigator.camera.DestinationType;
-                startWatch();
+                empezarBrujula();
+                empezarAcelerometro();
             }
 
             function onPhotoDataSuccess(imageData) {
@@ -69,31 +74,72 @@
                 $('#angulo').html(d + ' °');
             }
 
-            function onSuccess(heading) {
+            function successBrujula(heading) {
                 DoRotate(heading.magneticHeading);
             }
 
-            function startWatch() {
+            function empezarBrujula() {
                 var options = {frequency: 250};
-                if (!gWatchID) {
-                    gWatchID = navigator.compass.watchHeading(onSuccess, onError, options);
+                if (!bruWatchID) {
+                    bruWatchID = navigator.compass.watchHeading(successBrujula, falloBrujula, options);
                 }
             }
 
-            function stopWatch() {
-                if (gWatchID) {
-                    navigator.compass.clearWatch(watchID);
-                    gWatchID = null;
+            function detenerBrujula() {
+                if (bruWatchID) {
+                    navigator.compass.clearWatch(bruWatchID);
+                    bruWatchID = null;
+
                 }
             }
 
-            function onError(compassError) {
+            function falloBrujula(compassError) {
                 alert('Error de brujula:' + compassError.code);
+            }
+
+            //Calorias
+            function mostrarInfoCaloriasPasos() {
+                $('#pasos').text(pasos);
+                $('#kcal').text(kcal);
+            }
+
+            //Acelerómetro
+            function successAcelerometro(acceleration) {
+                $('#pasos').text('Acceleration X: ' + acceleration.x + '\n' +
+                        'Acceleration Y: ' + acceleration.y + '\n' +
+                        'Acceleration Z: ' + acceleration.z + '\n' +
+                        'Timestamp: ' + acceleration.timestamp + '\n');
+            }
+
+            function empezarAcelerometro() {
+                var opciones = { frequency: 3000 };
+                if (!acelWatchID) {
+                    acelWatchID = navigator.accelerometer.getCurrentAcceleration(successAcelerometro, falloAcelerometro, opciones);
+                }
+            }
+
+            function falloAcelerometro() {
+                alert('onError!');
+            }
+
+            function reiniciarContadores() {
+                pasos = 0;
+                kcal = 0;
+                mostrarInfoCaloriasPasos();
+                empezarAcelerometro();
+            }
+
+            function detenerAcelerometro() {
+                if (acelWatchID) {
+                    navigator.accelerometer.clearWatch(acelWatchID);
+                    bruWatchID = null;
+                }
             }
         </script>
     </head>
 
     <body>
+        <!-- PRIMERA PÁGINA-->
         <section data-role="page" style="background-color: #f7931e; align-content: inherit">
             <div style="top: 5%; position: absolute">
                 <img src="img/full_sports.png" alt="" width="100%" height="100%"/>
@@ -109,6 +155,7 @@
             </div>
         </section>
 
+        <!-- SEGUNDA PÁGINA-->
         <div data-role="page" id="menu">
             <div data-role="content">
                 <center>
@@ -144,6 +191,8 @@
                 </center>
             </footer>
         </div>
+
+        <!-- TERCER PÁGINA-->
         <!-- Esta página va a estar dividida en 3 partes:
             en el primero la portada con un 25%;
             en segundo las calorías: los pasos, las calorías y el reiniciar y detener;
@@ -152,7 +201,7 @@
         <div data-role="page" id="main_screen" style="background-color: chocolate">
 
             <!-- Parte 1: La portada -->
-            <div role="main" class="ui-content">
+            <div data-role="content" class="ui-content">
                 <a href="#dialogPage" data-rel="dialog">
                     <div style="height: 25vh; text-align: center; background-color: white;">
                         <img id="portada_img" src="img/keep-running.jpg"
@@ -162,15 +211,24 @@
 
             </div>
             <!-- Parte 2: Las calorías -->
-            <div>
+            <div data-role="content" style="height: 25vh; text-align: center; background-color: white;">
+                <div class="info">
+                    <h4>Pasos: <span id="pasos"></span></h4>
 
-
+                    <h4>Calorías: <span id="kcal"></span> kcal</h4>
+                </div>
+                <div class="botones">
+                    <button data-role="button" class="ui-btn ui-btn-inline ui-corner-all" onclick="reiniciarContadores()">
+                        Reiniciar
+                    </button>
+                    <button class="ui-btn ui-btn-inline ui-corner-all" onclick="detenerAcelerometro()">Detener</button>
+                </div>
             </div>
 
             <!-- Parte 3: La brújula -->
             <div data-role="content">
                 <div id="brujula" style="text-align: center">
-                    <img src="img/compass.png" alt="" id="img_brujula"/>
+                    <img src="img/compass.png" alt="" id="img_brujula" style="height: 100%; width: 100%"/>
                     <h5 id="angulo"></h5>
                 </div>
             </div>
