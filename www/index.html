@@ -7,29 +7,51 @@
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/jquery-2.1.4.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="js/jquery.mobile-1.4.5.min.js"></script>
+        <script src="js/jQuery.Rotate.js"></script>
+
         <link rel="stylesheet" href="css/jquery.mobile-1.4.5.css"/>
         <link rel="stylesheet" href="css/jquery.mobile.icons.min.css"/>
         <link rel="stylesheet" href="css/Calorias1.css"/>
 
+        <style>
+            .alinear_vertical {
+                position: absolute;
+                top: 50%;
+                height: 50%;
+                width: 100%;
+                text-align: center;
+                padding: 0;
+            }
+        </style>
+
         <script type="text/javascript" charset="utf-8">
             var pictureSource;
             var destinationType;
+            var bruWatchID = null;
+            var acelWatchID = null;
+
+            var pasos = 0;
+            var kcal = 0;
 
             document.addEventListener("deviceReady", onDeviceReady, false);
 
             function onDeviceReady() {
                 pictureSource = navigator.camera.PictureSourceType;
                 destinationType = navigator.camera.DestinationType;
+                empezarBrujula();
+                empezarAcelerometro();
             }
 
             function onPhotoDataSuccess(imageData) {
                 var portada = document.getElementById('portada_img');
                 portada.src = "data:image/jpeg;base64," + imageData;
+                $('#dialogPage').dialog('close');
             }
 
             function onPhotoLibrarySuccess(imageURI) {
                 var portada = document.getElementById('portada_img');
                 portada.src = imageURI;
+                $('#dialogPage').dialog('close');
             }
 
             function onFail() {
@@ -47,11 +69,111 @@
                 navigator.camera.getPicture(onPhotoLibrarySuccess, onFail, {
                     quality: 50, destinationType: destinationType.FILE_URI, sourceType: source
                 });
+
+            }
+
+            //Brujula
+            function rotarImagen(d) {
+                d = parseInt(d);
+                var imagen = $("#img_brujula");
+                imagen.rotate({
+                    angle: -d,
+                    duration: 500
+                });
+                //Agregar comprobacion en que coordenada esta (NE, SE, NO, etc)
+                //MELISSA TE AMO
+            }
+
+            function successBrujula(heading) {
+                var orientacion;
+                var valor = heading.magneticHeading;
+                rotarImagen(valor);
+
+                if (valor == 0) {
+                    orientacion = "N";
+                } else if (valor < 90) {
+                    orientacion = "NE";
+                } else if (valor == 90) {
+                    orientacion = "E";
+                } else if (valor < 180) {
+                    orientacion = "SE";
+                } else if (valor == 180) {
+                    orientacion = "S";
+                } else if (valor < 270) {
+                    orientacion = "SO";
+                } else if (valor == 270) {
+                    orientacion = "O";
+                } else if (valor < 360) {
+                    orientacion = "NO";
+                }
+
+
+                $('#angulo').html(heading.magneticHeading + ' °' + orientacion);
+
+            }
+
+            function empezarBrujula() {
+                var options = {frequency: 250};
+                if (!bruWatchID) {
+                    bruWatchID = navigator.compass.watchHeading(successBrujula, falloBrujula, options);
+                }
+            }
+
+            function detenerBrujula() {
+                if (bruWatchID) {
+                    navigator.compass.clearWatch(bruWatchID);
+                    bruWatchID = null;
+
+                }
+            }
+
+            function falloBrujula(compassError) {
+                alert('Error de brujula:' + compassError.code);
+            }
+
+            //Calorias
+            function mostrarInfoCaloriasPasos() {
+                $('#pasos').text(pasos);
+                $('#kcal').text(kcal);
+            }
+
+            //Acelerómetro
+            function successAcelerometro(acceleration) {
+                $('#pasos').text('Acceleration X: ' + acceleration.x + '\n' +
+                        'Acceleration Y: ' + acceleration.y);
+
+                mostrarInfoCaloriasPasos();
+            }
+
+            function empezarAcelerometro() {
+                var opciones = {frequency: 1000};
+                if (!acelWatchID) {
+                    acelWatchID = navigator.accelerometer.watchAcceleration(successAcelerometro, falloAcelerometro, opciones);
+                }
+            }
+
+            function falloAcelerometro() {
+                alert('onError!');
+            }
+
+            function reiniciarContadores() {
+                pasos = 0;
+                kcal = 0;
+                mostrarInfoCaloriasPasos();
+                empezarAcelerometro();
+            }
+
+            function detenerAcelerometro() {
+                if (acelWatchID) {
+                    navigator.accelerometer.clearWatch(acelWatchID);
+                    acelWatchID = null;
+                }
             }
         </script>
     </head>
 
     <body>
+        <!-- PRIMERA PÁGINA-->
         <section data-role="page" style="background-color: #f7931e; align-content: inherit">
             <div style="top: 5%; position: absolute">
                 <img src="img/full_sports.png" alt="" width="100%" height="100%"/>
@@ -67,6 +189,7 @@
             </div>
         </section>
 
+        <!-- SEGUNDA PÁGINA-->
         <div data-role="page" id="menu">
             <div data-role="content">
                 <center>
@@ -102,6 +225,8 @@
                 </center>
             </footer>
         </div>
+
+        <!-- TERCER PÁGINA-->
         <!-- Esta página va a estar dividida en 3 partes:
             en el primero la portada con un 25%;
             en segundo las calorías: los pasos, las calorías y el reiniciar y detener;
@@ -110,7 +235,7 @@
         <div data-role="page" id="main_screen" style="background-color: chocolate">
 
             <!-- Parte 1: La portada -->
-            <div role="main" class="ui-content">
+            <div data-role="content">
                 <a href="#dialogPage" data-rel="dialog">
                     <div style="height: 25vh; text-align: center; background-color: white;">
                         <img id="portada_img" src="img/keep-running.jpg"
@@ -118,23 +243,34 @@
                     </div>
                 </a>
             </div>
-            <div data-role="content">
-                <center>
-                    <div style="color: white; font-family: verdana;">¡Bienvenido de Nuevo!</div>
-                </center>
+
+            <!-- Parte 2: Las calorías -->
+            <div style="height: 25vh; text-align: center; background-color: white;" data-role="content">
+                <div class="info">
+                    <h4>Pasos: <span id="pasos"></span></h4>
+
+                    <h4>Calorías: <span id="kcal"></span> kcal</h4>
+                </div>
+                <div class="botones">
+                    <button data-role="button" data-mini="true" class="ui-mini ui-btn ui-btn-inline ui-corner-all"
+                            onclick="reiniciarContadores()">
+                        Reiniciar
+                    </button>
+                    <button data-role="button" data-mini="true" class="ui-mini ui-btn ui-btn-inline ui-corner-all" onclick="detenerAcelerometro()">Detener
+                    </button>
+                </div>
+            </div>
+
+            <!-- Parte 3: La brújula -->
+            <div id="brujula" style="text-align: center" data-role="content">
+                <div class="ui-btn-corner-all" style="background-color: white; padding-top: 15px">
+                    <img src="img/compass.png" alt="" id="img_brujula" style="height: 180px"/>
+
+                    <h3 id="angulo">s</h3>
+                </div>
             </div>
         </div>
-        <!-- Parte 2: Las calorías -->
-        <div>
 
-
-        </div>
-
-        <!-- Parte 3: La brújula -->
-        <div>
-
-
-        </div>
 
         <!-- Parte para dialog y popup -->
         <div data-role="dialog" id="dialogPage" style="background-color: chocolate">
@@ -146,7 +282,7 @@
 
                 <p>Le servirá para personalizar su perfil.</p>
                 <a href="#cambiar_portada" data-role="button" data-icon="check" data-inline="true" data-rel="popup"
-                   data-mini="true">Aceptar</a>
+                   data-mini="true" data-position-to="#portada">Aceptar</a>
 
                 <a href="#" data-role="button" data-icon="delete" data-inline="true" data-rel="back"
                    data-mini="true">Cancelar</a>
@@ -159,10 +295,10 @@
                 <h3>Origen</h3>
 
                 <p>¿De donde desea obtener su nueva foto?</p>
-                <a href="#" data-role="button" data-icon="check" data-inline="true" data-rel="back"
+                <a href="#" data-role="button" data-icon="grid" data-inline="true" data-rel="back"
                    data-mini="true" onclick="getPhoto(pictureSource.PHOTOLIBRARY);">Libreria</a>
 
-                <a href="#" data-role="button" data-icon="delete" data-inline="true" data-rel="back"
+                <a href="#" data-role="button" data-icon="camera" data-inline="true" data-rel="back"
                    data-mini="true" onclick="capturePhoto();">Cámara</a>
             </div>
         </div>
