@@ -1,0 +1,104 @@
+#dialogPage p {
+    color: white;
+}
+
+.no_difuminado {
+    opacity: 1 !important;
+}
+
+h5 {
+    margin: 0 !important;
+}
+
+/*Primera pagina*/
+#primera_pagina {
+    background-image: url(../img/fondo.jpg);
+}
+
+#boton_empezar {
+    font-size: larger;
+    font-family: serif
+}
+
+/*Segunda pagina*/
+#login {
+    background-image: url(../img/fondo.jpg);
+    align-content: inherit
+}
+
+.size50x50 {
+    width: 50%;
+    height: 50%;
+    margin: auto;
+}
+
+/*Tercer pagina*/
+
+#main_screen {
+    background-image: url(../img/tring.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+#portada {
+    height: 25vh;
+    text-align: center;
+    background-color: white;
+}
+
+.size100x100 {
+    height: 100%;
+    width: 100%;
+    margin: auto;
+}
+
+#bienvenido_de_nuevo {
+    color: chocolate;
+}
+
+#info {
+    /*text-align: center;*/
+}
+
+#info h4 {
+    color: white;
+}
+
+#botones button {
+    padding: 0;
+    margin: 0;
+}
+
+#btn_reiniciar {
+    color: green;
+}
+
+#btn_detener {
+    color: red;
+}
+
+.width30 {
+    width: 30%;
+}
+
+#brujula {
+    text-align: center;
+    background-color: white;
+    padding-top: 15px;
+}
+
+#img_brujula {
+    height: 180px;
+}
+
+/*Footer*/
+footer {
+    text-align: center;
+}
+
+footer div {
+    color: black;
+    font-size: smaller;
+}
+
