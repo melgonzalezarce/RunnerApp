@@ -13,7 +13,6 @@
 /* Globals */
 /* Font
 -----------------------------------------------------------------------------------------------------------*/
-
 html {
 	font-size: 100%;
 }
@@ -174,7 +173,7 @@ html .ui-alt-icon .ui-radio-off:after {
 /* No disc */
 .ui-nodisc-icon.ui-btn:after,
 .ui-nodisc-icon .ui-btn:after {
-	background-color: transparent;
+	background-color: navajowhite;
 }
 /* Icon shadow */
 .ui-shadow-icon.ui-btn:after,
@@ -259,14 +258,17 @@ html .ui-bar-a .ui-body-inherit,
 html .ui-body-a .ui-body-inherit,
 html body .ui-group-theme-a .ui-body-inherit,
 html .ui-panel-page-container-a {
-	background-color: navajowhite /*{a-body-background-color}*/;
+	opacity: 0.5;
+	background-color: #ffe9a8 /*{a-body-background-color}*/;
 	border-color: transparent /*{a-body-border}*/;
-	color: black /*{a-body-color}*/;
+	color: white /*{a-body-color}*/;
 	text-shadow: 0 /*{a-body-shadow-x}*/ 1px /*{a-body-shadow-y}*/ 0 /*{a-body-shadow-radius}*/ #0d0d0d /*{a-body-shadow-color}*/;
 }
 
 ::-webkit-input-placeholder{
+	opacity: 0.5;
 	color: black;
+	background-color: #ffe9a8;
 }
 .ui-body-a {
 	border-width: 1px;
@@ -332,7 +334,7 @@ html .ui-bar-a .ui-btn:active,
 html .ui-body-a .ui-btn:active,
 html body .ui-group-theme-a .ui-btn:active,
 html head + body .ui-btn.ui-btn-a:active {
-	background-color: #ffe9a8 /*{a-bdown-background-color}*/;
+	background-color: navajowhite /*{a-bdown-background-color}*/;
 	border-color: #ffe9a8 /*{a-bdown-border}*/;
 	color: #333333 /*{a-bdown-color}*/;
 	text-shadow: 0 /*{a-bdown-shadow-x}*/ 1px /*{a-bdown-shadow-y}*/ 0 /*{a-bdown-shadow-radius}*/ #f3f3f3 /*{a-bdown-shadow-color}*/;
@@ -361,8 +363,8 @@ html .ui-bar-a .ui-slider-track .ui-btn-active,
 html .ui-body-a .ui-slider-track .ui-btn-active,
 html body .ui-group-theme-a .ui-slider-track .ui-btn-active,
 html body div.ui-slider-track.ui-body-a .ui-btn-active {
-	background-color: #fbc98f /*{a-active-background-color}*/;
-	border-color: #f7931e /*{a-active-border}*/;
+	background-color: whitesmoke /*{a-active-background-color}*/;
+	border-color: transparent/*{a-active-border}*/;
 	color: #ffffff /*{a-active-color}*/;
 	text-shadow: 0 /*{a-active-shadow-x}*/ 1px /*{a-active-shadow-y}*/ 0 /*{a-active-shadow-radius}*/ #ffcc33 /*{a-active-shadow-color}*/;
 }
