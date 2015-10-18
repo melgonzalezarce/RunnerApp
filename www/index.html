@@ -28,6 +28,14 @@
             var ejeYanterior;
             var ejeYactual;
 
+            var ejeZanterior;
+            var ejeZactual;
+
+            var sensibilidadX;
+            var sensibilidadY;
+
+            var valorCaloriaxPaso
+
             document.addEventListener("deviceReady", onDeviceReady, false);
 
             function onDeviceReady() {
@@ -44,6 +52,12 @@
 
                 ejeYanterior = 0;
                 ejeYactual = 0;
+
+                ejeZanterior = 0;
+                ejeZactual = 0;
+
+                sensibilidadX = 1.5;
+                sensibilidadY = 0.35;
             }
 
             function onPhotoDataSuccess(imageData) {
@@ -140,15 +154,37 @@
             }
 
             //Acelerómetro
+            var paso = false;
             function successAcelerometro(acceleration) {
-                $('#pasos').text('Acceleration X: ' + acceleration.x + '\n' +
-                        'Acceleration Y: ' + acceleration.y);
+//                $('#pasos').text('Acceleration X: ' + acceleration.x + '\n' +
+//                        'Acceleration Y: ' + acceleration.y);
+
+                var sumaEjesAnterior = (ejeXanterior + ejeYanterior + ejeZanterior) / 3;
+                var sumaEjesActuales = (acceleration.x + acceleration.y + acceleration.z) / 3;
+                ejeXactual = acceleration.x;
+                ejeYactual = acceleration.y;
+                ejeZactual = acceleration.z;
+
+                if (Math.abs(ejeYactual - ejeYanterior) > sensibilidadY && !paso) {
+                    if (Math.abs(ejeXanterior - ejeXactual) > sensibilidadX && !paso) {
+                        pasos++;
+                        paso = true;
+                        kcal = pasos * valorCaloriaxPaso;
+                    }
+//                    alert("paso");
+                } else {
+                    paso = false;
+                }
+
+                ejeXanterior = ejeXactual;
+                ejeYanterior = ejeYactual;
+                ejeZanterior = ejeZactual;
 
                 mostrarInfoCaloriasPasos();
             }
 
             function empezarAcelerometro() {
-                var opciones = {frequency: 1000};
+                var opciones = {frequency: 500};
                 if (!acelWatchID) {
                     acelWatchID = navigator.accelerometer.watchAcceleration(successAcelerometro, falloAcelerometro, opciones);
                 }
