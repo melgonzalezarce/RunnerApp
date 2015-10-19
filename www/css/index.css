@@ -13,6 +13,10 @@ h5 {
 /*Primera pagina*/
 #primera_pagina {
     background-image: url(../img/fondo.jpg);
+    text-align: center;
+}
+.text_center {
+    text-align: center;
 }
 
 #boton_empezar {
