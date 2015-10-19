@@ -20,7 +20,8 @@
             var bruWatchID = null;
             var acelWatchID = null;
 
-            var pasos;
+            var pasos
+                    ;
             var kcal;
             var ejeXanterior;
             var ejeXactual;
@@ -33,9 +34,8 @@
 
             var sensibilidadX;
             var sensibilidadY;
-            var sensibilidadEjes;
 
-            var valorCaloriaxPaso
+            var valorCaloriaxPaso;
 
             document.addEventListener("deviceReady", onDeviceReady, false);
 
@@ -59,7 +59,6 @@
 
                 sensibilidadX = 1.5;
                 sensibilidadY = 1.0;
-                sensibilidadEjes = 1.5;
 
                 valorCaloriaxPaso = 0.039;
             }
@@ -160,8 +159,6 @@
             //Acelerómetro
             function successAcelerometro(acceleration) {
 
-                var sumaEjesAnterior = (ejeXanterior + ejeYanterior + ejeZanterior) / 3;
-                var sumaEjesActuales = (acceleration.x + acceleration.y + acceleration.z) / 3;
                 ejeXactual = acceleration.x;
                 ejeYactual = acceleration.y;
                 ejeZactual = acceleration.z;
@@ -205,153 +202,154 @@
         </script>
     </head>
 
+    <body>
+        <!-- PRIMERA PÁGINA-->
+        <section data-role="page" id="primera_pagina">
+            <center>
+                <div data-role="content" style="top: 10%; position: absolute;">
+                    <img src="img/full_sports.png" alt="" width="50%" height="50%"/>
+                    <br>
+                    <img src="img/runner.png" alt=""/>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <br>
 
-    <!-- PRIMERA PÁGINA-->
-    <section data-role="page" id="primera_pagina" style="">
-        <center>
-            <div data-role="content" style="top: 10%; position: absolute;">
-                <img src="img/full_sports.png" alt="" width="50%" height="50%"/>
-                <br>
-                <img src="img/runner.png" alt=""/>
-                <br>
-                <br>
-                <br>
-                <br>
-                <br>
+                    <p id="boton_empezar">
+                        <a href="#login" data-role="button" data-transition="slide">Empezar</a>
+                    </p>
+                </div>
 
-                <p id="boton_empezar">
-                    <a href="#login" data-role="button" data-transition="slide">Empezar</a>
-                </p>
+                <footer data-role="footer" data-position="fixed">
+                    <div>Copyright. All rights reserved.</div>
+                </footer>
+            </center>
+        </section>
+
+        <!-- SEGUNDA PÁGINA-->
+        <div data-role="page" id="login" style="">
+            <div data-role="content">
+                <center>
+                    <img src="img/full_sports.png" alt="" class="size50x50"/>
+                    <br>
+                    <img src="img/runner.png" alt=""/>
+                </center>
             </div>
+            <div data-role="content">
+                <form data-role="form" id="form_login" method="post">
+                    <p>
+                        <input type="email" name="email" size="30" data-inset="true"
+                               data-filter-placeholder="E-mail" placeholder="E-mail" required>
+                    </p>
 
+                    <p>
+                        <input type="password" name="password" size="30" data-inset="true"
+                               data-filter-placeholder="Contraseña" placeholder="Contraseña" required>
+                    </p>
+
+                    <p align="center">
+                        <a href="#main_screen" onclick="parentNode.submit();" data-role="button">Entrar</a>
+                    </p>
+
+                </form>
+            </div>
             <footer data-role="footer" data-position="fixed">
                 <div>Copyright. All rights reserved.</div>
             </footer>
-        </center>
-    </section>
-
-    <!-- SEGUNDA PÁGINA-->
-    <div data-role="page" id="login" style="">
-        <div data-role="content">
-            <center>
-                <img src="img/full_sports.png" alt="" class="size50x50"/>
-                <br>
-                <img src="img/runner.png" alt=""/>
-            </center>
         </div>
-        <div data-role="content">
-            <form data-role="form" id="form_login" method="post">
-                <p>
-                    <input type="email" name="email" size="30" data-inset="true"
-                           data-filter-placeholder="E-mail" placeholder="E-mail" required>
-                </p>
 
-                <p>
-                    <input type="password" name="password" size="30" data-inset="true"
-                           data-filter-placeholder="Contraseña" placeholder="Contraseña" required>
-                </p>
+        <!-- TERCER PÁGINA-->
+        <!-- Esta página va a estar dividida en 3 partes:
+            en el primero la portada con un 25%;
+            en segundo las calorías: los pasos, las calorías y el reiniciar y detener;
+            y por ultimo la brújula dinámica y los grados-->
 
-                <p align="center">
-                    <a href="#main_screen" onclick="parentNode.submit();" data-role="button">Entrar</a>
-                </p>
+        <div data-role="page" id="main_screen">
 
-            </form>
-        </div>
-        <footer data-role="footer" data-position="fixed">
-            <div>Copyright. All rights reserved.</div>
-        </footer>
-    </div>
+            <!-- Parte 1: La portada -->
+            <div data-role="content">
+                <center>
+                    <img src="img/runner.png" alt=""/>
+                    <a href="#dialogPage" data-rel="dialog">
+                        <div id="portada">
+                            <img id="portada_img" src="img/perfil.jpg" class="size100x100" alt=""/>
+                        </div>
+                    </a>
 
-    <!-- TERCER PÁGINA-->
-    <!-- Esta página va a estar dividida en 3 partes:
-        en el primero la portada con un 25%;
-        en segundo las calorías: los pasos, las calorías y el reiniciar y detener;
-        y por ultimo la brújula dinámica y los grados-->
+                    <h2 id="bienvenido_de_nuevo">¡Bienvenido de nuevo!</h2>
 
-    <div data-role="page" id="main_screen">
+                    <!-- Parte 2: Las calorías -->
+                    <!--<div style="height: 25vh; text-align: center;"
+                         data-role="content">-->
+                    <div id="info">
+                        <h4>Pasos: <span id="pasos"></span></h4>
 
-        <!-- Parte 1: La portada -->
-        <div data-role="content">
-            <center>
-                <img src="img/runner.png" alt=""/>
-                <a href="#dialogPage" data-rel="dialog">
-                    <div id="portada">
-                        <img id="portada_img" src="img/perfil.jpg" class="size100x100" alt=""/>
+                        <h4>Calorías: <span id="kcal"></span> kcal</h4>
                     </div>
-                </a>
 
-                <h2 id="bienvenido_de_nuevo">¡Bienvenido de nuevo!</h2>
+                    <div id="botones">
+                        <button data-role="button" data-mini="true" class="ui-mini ui-btn ui-btn-inline ui-corner-all "
+                                onclick="reiniciarContadores()" data-icon="reset">
+                            <img src="img/restarrt.png" alt="" class="width30"/>
 
-                <!-- Parte 2: Las calorías -->
-                <!--<div style="height: 25vh; text-align: center;"
-                     data-role="content">-->
-                <div id="info">
-                    <h4>Pasos: <span id="pasos"></span></h4>
+                            <h5 id="btn_reiniciar">Reiniciar</h5>
+                        </button>
+                        <button data-role="button" data-mini="true" class="ui-mini ui-btn ui-btn-inline ui-corner-all"
+                                onclick="detenerAcelerometro()">
+                            <img src="img/stop.png" alt="" class="width30"/>
 
-                    <h4>Calorías: <span id="kcal"></span> kcal</h4>
-                </div>
+                            <h5 id="btn_detener">Detener</h5>
+                        </button>
+                    </div>
+                </center>
+            </div>
+            <!--</div>-->
 
-                <div id="botones">
-                    <button data-role="button" data-mini="true" class="ui-mini ui-btn ui-btn-inline ui-corner-all "
-                            onclick="reiniciarContadores()" data-icon="reset">
-                        <img src="img/restarrt.png" alt="" class="width30"/>
+            <!-- Parte 3: La brújula -->
+            <div id="brujula" class="ui-btn-corner-all">
+                <img src="img/compass.png" alt="" id="img_brujula"/>
 
-                        <h5 id="btn_reiniciar">Reiniciar</h5>
-                    </button>
-                    <button data-role="button" data-mini="true" class="ui-mini ui-btn ui-btn-inline ui-corner-all"
-                            onclick="detenerAcelerometro()">
-                        <img src="img/stop.png" alt="" class="width30"/>
-
-                        <h5 id="btn_detener">Detener</h5>
-                    </button>
-                </div>
-            </center>
+                <h3 id="angulo">s</h3>
+            </div>
         </div>
-        <!--</div>-->
-
-        <!-- Parte 3: La brújula -->
-        <div id="brujula" class="ui-btn-corner-all">
-            <img src="img/compass.png" alt="" id="img_brujula"/>
-
-            <h3 id="angulo">s</h3>
-        </div>
-    </div>
 
 
-    <!-- Parte para dialog y popup -->
-    <div data-role="dialog" id="dialogPage" style="background-color: #aaaaaa">
-        <div data-role="header">
-            <h2>Atención</h2>
-        </div>
-        <div role="main" class="ui-content">
-            <p>¿Desea cambiar su foto de portada?</p>
+        <!-- Parte para dialog y popup -->
+        <div data-role="dialog" id="dialogPage" style="background-color: #aaaaaa">
+            <div data-role="header">
+                <h2>Atención</h2>
+            </div>
+            <div role="main" class="ui-content">
+                <p>¿Desea cambiar su foto de portada?</p>
 
-            <p>Le servirá para personalizar su perfil.</p>
-            <a href="#cambiar_portada" data-role="button" data-icon="check" data-inline="true" data-rel="popup"
-               data-mini="true" data-position-to="#portada">Aceptar</a>
+                <p>Le servirá para personalizar su perfil.</p>
+                <a href="#cambiar_portada" data-role="button" data-icon="check" data-inline="true" data-rel="popup"
+                   data-mini="true" data-position-to="#portada">Aceptar</a>
 
-            <a href="#" data-role="button" data-icon="delete" data-inline="true" data-rel="back"
-               data-mini="true">Cancelar</a>
-        </div>
-        <!-- Popup para cambiar la imagen de la portada -->
-        <div data-role="popup" id="cambiar_portada" class="ui-content no_difuminado" style="background-color: #aaaaaa">
-            <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete
+                <a href="#" data-role="button" data-icon="delete" data-inline="true" data-rel="back"
+                   data-mini="true">Cancelar</a>
+            </div>
+            <!-- Popup para cambiar la imagen de la portada -->
+            <div data-role="popup" id="cambiar_portada" class="ui-content no_difuminado"
+                 style="background-color: #aaaaaa">
+                <a href="#" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn ui-icon-delete
                     ui-btn-icon-notext ui-btn-right">Close</a>
 
-            <h3>Origen</h3>
+                <h3>Origen</h3>
 
-            <p>¿De donde desea obtener su nueva foto?</p>
-            <center>
-                <a href="#" data-role="button" data-inline="true" data-rel="back"
-                   data-mini="true" onclick="getPhoto(pictureSource.PHOTOLIBRARY);">
-                    <img src="img/gallery.png" width="30%" alt=""/>Libreria</a>
+                <p>¿De donde desea obtener su nueva foto?</p>
+                <center>
+                    <a href="#" data-role="button" data-inline="true" data-rel="back"
+                       data-mini="true" onclick="getPhoto(pictureSource.PHOTOLIBRARY);">
+                        <img src="img/gallery.png" width="30%" alt=""/>Libreria</a>
 
-                <a href="#" data-role="button" data-inline="true" data-rel="back"
-                   data-mini="true" onclick="capturePhoto();">
-                    <img src="img/camera.png" width="30%" alt=""/>Cámara</a>
-            </center>
+                    <a href="#" data-role="button" data-inline="true" data-rel="back"
+                       data-mini="true" onclick="capturePhoto();">
+                        <img src="img/camera.png" width="30%" alt=""/>Cámara</a>
+                </center>
+            </div>
         </div>
-    </div>
-    <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>
