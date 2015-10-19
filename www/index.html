@@ -57,7 +57,9 @@
                 ejeZactual = 0;
 
                 sensibilidadX = 1.5;
-                sensibilidadY = 0.35;
+                sensibilidadY = 1.0;
+
+                valorCaloriaxPaso = 0.039;
             }
 
             function onPhotoDataSuccess(imageData) {
@@ -150,7 +152,7 @@
             //Calorias
             function mostrarInfoCaloriasPasos() {
                 $('#pasos').text(pasos);
-                $('#kcal').text(kcal);
+                $('#kcal').text(kcal.toFixed(2));
             }
 
             //Acelerómetro
@@ -165,13 +167,10 @@
                 ejeYactual = acceleration.y;
                 ejeZactual = acceleration.z;
 
-                if (Math.abs(ejeYactual - ejeYanterior) > sensibilidadY && !paso) {
-                    if (Math.abs(ejeXanterior - ejeXactual) > sensibilidadX && !paso) {
-                        pasos++;
-                        paso = true;
-                        kcal = pasos * valorCaloriaxPaso;
-                    }
-//                    alert("paso");
+                if (Math.abs(ejeXanterior - ejeXactual) > sensibilidadX && !paso && (ejeYactual - ejeYanterior) > sensibilidadY && !paso) {
+                    pasos++;
+                    paso = true;
+                    kcal += valorCaloriaxPaso;
                 } else {
                     paso = false;
                 }
