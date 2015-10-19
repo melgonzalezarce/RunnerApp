@@ -33,6 +33,7 @@
 
             var sensibilidadX;
             var sensibilidadY;
+            var sensibilidadEjes;
 
             var valorCaloriaxPaso
 
@@ -58,6 +59,7 @@
 
                 sensibilidadX = 1.5;
                 sensibilidadY = 1.0;
+                sensibilidadEjes = 1.5;
 
                 valorCaloriaxPaso = 0.039;
             }
@@ -156,10 +158,7 @@
             }
 
             //Acelerómetro
-            var paso = false;
             function successAcelerometro(acceleration) {
-//                $('#pasos').text('Acceleration X: ' + acceleration.x + '\n' +
-//                        'Acceleration Y: ' + acceleration.y);
 
                 var sumaEjesAnterior = (ejeXanterior + ejeYanterior + ejeZanterior) / 3;
                 var sumaEjesActuales = (acceleration.x + acceleration.y + acceleration.z) / 3;
@@ -167,12 +166,9 @@
                 ejeYactual = acceleration.y;
                 ejeZactual = acceleration.z;
 
-                if (Math.abs(ejeXanterior - ejeXactual) > sensibilidadX && !paso && (ejeYactual - ejeYanterior) > sensibilidadY && !paso) {
+                if (Math.abs(ejeXanterior - ejeXactual) > sensibilidadX && (ejeYactual - ejeYanterior) > sensibilidadY) {
                     pasos++;
-                    paso = true;
                     kcal += valorCaloriaxPaso;
-                } else {
-                    paso = false;
                 }
 
                 ejeXanterior = ejeXactual;
