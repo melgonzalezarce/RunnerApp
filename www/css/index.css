@@ -15,6 +15,7 @@ h5 {
     background-image: url(../img/fondo.jpg);
     text-align: center;
 }
+
 .text_center {
     text-align: center;
 }
@@ -39,16 +40,17 @@ h5 {
 /*Tercer pagina*/
 
 #main_screen {
-    background-image: url(../img/tring.png);
-    background-repeat: no-repeat;
+    /*background-image: url(../img/tring.png);*/
+    /*background-repeat: no-repeat;*/
     background-size: contain;
-    background-position: center;
+    /*background-position: center;*/
+    background-image: url(../img/fondo.jpg);
 }
 
 #portada {
     height: 25vh;
     text-align: center;
-    background-color: white;
+    /*background-color: white;*/
 }
 
 .size100x100 {
@@ -88,7 +90,7 @@ h5 {
 
 #brujula {
     text-align: center;
-    background-color: white;
+    /*background-color: white;*/
     padding-top: 15px;
 }
 
