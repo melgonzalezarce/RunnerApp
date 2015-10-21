@@ -43,6 +43,11 @@ function onDeviceReady() {
     sensibilidadY = 1.0;
 
     valorCaloriaxPaso = 0.039;
+
+    if (window.localStorage.getItem('path_foto')) {
+        var portada = document.getElementById('portada_img');
+        portada.src = window.localStorage.getItem('path_foto');
+    }
 }
 
 
