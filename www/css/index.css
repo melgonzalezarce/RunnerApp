@@ -1,5 +1,5 @@
 #dialogPage p {
-    color: white;
+    /*color: white;*/
 }
 
 .no_difuminado {
@@ -44,7 +44,7 @@ h5 {
     /*background-repeat: no-repeat;*/
     background-size: contain;
     /*background-position: center;*/
-    background-image: url(../img/fondo.jpg);
+    background-image: url(../img/fondo_runner.jpg);
 }
 
 #portada {
@@ -68,7 +68,7 @@ h5 {
 }
 
 #info h4 {
-    color: white;
+    /*color: white;*/
 }
 
 #botones button {
