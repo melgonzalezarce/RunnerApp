@@ -40,10 +40,8 @@ h5 {
 /*Tercer pagina*/
 
 #main_screen {
-    /*background-image: url(../img/tring.png);*/
-    /*background-repeat: no-repeat;*/
+    background-repeat: no-repeat;
     background-size: contain;
-    /*background-position: center;*/
     background-image: url(../img/fondo_runner.jpg);
 }
 
@@ -57,10 +55,6 @@ h5 {
     height: 100%;
     width: 100%;
     margin: auto;
-}
-
-#bienvenido_de_nuevo {
-    color: chocolate;
 }
 
 #info {
@@ -96,8 +90,13 @@ h5 {
 
 #img_brujula {
     height: 180px;
+    background-color: white;
+    border-radius: 50%;
 }
 
+#angulo {
+    color: white;
+}
 /*Footer*/
 footer {
     text-align: center;
