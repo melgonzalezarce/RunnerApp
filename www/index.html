@@ -65,7 +65,7 @@
                     </p>
 
                     <p align="center">
-                        <a href="#main_screen" onclick="parentNode.submit();" data-role="button">Entrar</a>
+                        <a href="#main_screen" onclick="this.submit();" data-role="button">Entrar</a>
                     </p>
 
                 </form>
@@ -77,7 +77,7 @@
 
         <!-- TERCER PÁGINA-->
         <!-- Esta página va a estar dividida en 3 partes:
-            en el primero la portada con un 25%;
+            en el primero la portada;
             en segundo las calorías: los pasos, las calorías y el reiniciar y detener;
             y por ultimo la brújula dinámica y los grados-->
 
@@ -104,7 +104,7 @@
 
                 <div id="botones">
                     <button data-role="button" data-mini="true" class="ui-mini ui-btn ui-btn-inline ui-corner-all "
-                            onclick="reiniciarContadores()" data-icon="reset">
+                            onclick="reiniciarContadores()">
                         <img src="img/restarrt.png" alt="" class="width30"/>
 
                         <h5 id="btn_reiniciar">Reiniciar</h5>
