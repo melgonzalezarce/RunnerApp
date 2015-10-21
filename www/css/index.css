@@ -27,8 +27,10 @@ h5 {
 
 /*Segunda pagina*/
 #login {
-    background-image: url(../img/fondo.jpg);
-    align-content: inherit
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-image: url(../img/road.jpg);
+    background-size: cover;
 }
 
 .size50x50 {
@@ -41,6 +43,7 @@ h5 {
 
 #main_screen {
     background-repeat: no-repeat;
+    background-size: cover;
     background-size: contain;
     background-image: url(../img/fondo_runner.jpg);
 }
@@ -97,6 +100,7 @@ h5 {
 #angulo {
     color: white;
 }
+
 /*Footer*/
 footer {
     text-align: center;
