@@ -93,15 +93,13 @@
                     </div>
                 </a>
 
-                <h2 id="bienvenido_de_nuevo">¡Bienvenido de nuevo!</h2>
-
                 <!-- Parte 2: Las calorías -->
                 <!--<div style="height: 25vh; text-align: center;"
                      data-role="content">-->
                 <div id="info">
-                    <h4>Pasos: <span id="pasos"></span></h4>
+                    <p>Pasos: <span id="pasos"></span></p>
 
-                    <h4>Calorías: <span id="kcal"></span> kcal</h4>
+                    <p>Calorías: <span id="kcal"></span> kcal</p>
                 </div>
 
                 <div id="botones">
@@ -123,7 +121,7 @@
 
             <!-- Parte 3: La brújula -->
             <div id="brujula" class="ui-btn-corner-all">
-                <img src="img/compass.png" alt="" id="img_brujula"/>
+                <img src="img/compass_4.png" alt="" id="img_brujula"/>
 
                 <h3 id="angulo">s</h3>
             </div>
@@ -139,11 +137,16 @@
                 <p>¿Desea cambiar su foto de portada?</p>
 
                 <p>Le servirá para personalizar su perfil.</p>
-                <a href="#cambiar_portada" data-role="button" data-icon="check" data-inline="true" data-rel="popup"
-                   data-mini="true" data-position-to="#portada">Aceptar</a>
 
-                <a href="#" data-role="button" data-icon="delete" data-inline="true" data-rel="back"
-                   data-mini="true">Cancelar</a>
+                <div class="text_center">
+
+                    <a href="#cambiar_portada" data-role="button" data-icon="check" data-inline="true" data-rel="popup"
+                       data-mini="true" data-position-to="#portada">Aceptar</a>
+
+                    <a href="#" data-role="button" data-icon="delete" data-inline="true" data-rel="back"
+                       data-mini="true">Cancelar</a>
+                </div>
+
             </div>
             <!-- Popup para cambiar la imagen de la portada -->
             <div data-role="popup" id="cambiar_portada" class="ui-content no_difuminado">
