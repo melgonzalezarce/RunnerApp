@@ -1,7 +1,6 @@
 function onPhotoDataSuccess(media) {
     var portada = document.getElementById('portada_img');
     portada.src = media[0].fullPath;
-    // To store a value
 
     var value = media[0].fullPath;
     window.localStorage.setItem('path_foto', value);
